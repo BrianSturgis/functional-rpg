@@ -1,15 +1,14 @@
 //initial creation will name input, type, initialize stuff
-const characterCreator = (characterClass) => {
+export const characterCreator = (characterClass) => {
   let currentCharacter = { class: characterClass };
   return (characterName) => {
     return (currentCharacter = { ...currentCharacter, name: characterName });
   };
 };
 
-const storeStats = (initialStats) => {
-  const newCharacterStats = initialStats;
+export const storeStats = (initialStats) => {
   return (characterObject) => {
-    let characterWithStats = { ...characterObject, ...newCharacterStats };
+    let characterWithStats = { ...characterObject, ...initialStats };
     return (statChangeFunction) => {
       const newStats = statChangeFunction(characterWithStats);
       characterWithStats = { ...newStats };
@@ -18,7 +17,16 @@ const storeStats = (initialStats) => {
   };
 };
 
-const changeStats = (prop) => {
+export const changeName = (prop) => {
+  return (value) => {
+    return (state) => ({
+      ...state,
+      [prop]: value,
+    });
+  };
+};
+
+export const changeNumberStat = (prop) => {
   return (value) => {
     return (state) => ({
       ...state,
